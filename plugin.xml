@@ -87,12 +87,12 @@ xmlns:rim="http://www.blackberry.com/ns/widgets"
 
         <source-file src="src/android/libs/build-extras.gradle" target-dir="." />
         <source-file src="src/android/libs/opencv-release.aar" target-dir="libs/" />
-        <source-file src="com/creative/informatics/CameraPreview.java" target-dir="com/creative/informatics/" />
-        <source-file src="com/creative/informatics/DocCrop.java" target-dir="com/creative/informatics/" />
-        <source-file src="com/creative/informatics/DocDetect.java" target-dir="com/creative/informatics/" />
-        <source-file src="com/creative/informatics/ImageProcess.java" target-dir="com/creative/informatics/" />
-        <source-file src="com/creative/informatics/RegionSelect.java" target-dir="com/creative/informatics/" />
-        <source-file src="com/creative/informatics/ResultActivity.java" target-dir="com/creative/informatics/" />
+        <source-file src="com/creative/informatics/camera/CameraPreview.java" target-dir="com/creative/informatics/camera/" />
+        <source-file src="com/creative/informatics/camera/DocCrop.java" target-dir="com/creative/informatics/camera/" />
+        <source-file src="com/creative/informatics/camera/DocDetect.java" target-dir="com/creative/informatics/camera/" />
+        <source-file src="com/creative/informatics/camera/ImageProcess.java" target-dir="com/creative/informatics/camera/" />
+        <source-file src="com/creative/informatics/camera/RegionSelect.java" target-dir="com/creative/informatics/camera/" />
+        <source-file src="com/creative/informatics/camera/ResultActivity.java" target-dir="com/creative/informatics/camera/" />
 
 
         <resource-file src="res/layout/doc_crop.xml" target="res/layout/doc_crop.xml" />
