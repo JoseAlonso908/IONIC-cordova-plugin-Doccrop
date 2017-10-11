@@ -57,7 +57,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 
-import com.creative.idrecognition.OcrCaptureActivity;
+import com.creative.informatics.camera.DocDetect;
 
 public class Capture extends CordovaPlugin {
 
@@ -212,11 +212,11 @@ public class Capture extends CordovaPlugin {
             // Save the number of images currently on disk for later
             this.numPics = queryImgDB(whichContentStore()).getCount();
 
-            Intent intent = new Intent(this.cordova.getActivity(), OcrCaptureActivity.class);
+            Intent intent = new Intent(this.cordova.getActivity(), DocDetect.class);
 //            intent.putExtra(OcrCaptureActivity.AutoFocus, autoFocus.isChecked());
 //            intent.putExtra(OcrCaptureActivity.UseFlash, useFlash.isChecked());
 
-            this.cordova.startActivityForResult((CordovaPlugin) this, intent, req.requestCode);
+         this.cordova.startActivityForResult((CordovaPlugin) this, intent, req.requestCode);
         }
     }
 

@@ -1,3 +1,4 @@
+cordova.define("cordova-plugin-doc-crop.capture", function(require, exports, module) {
 /*
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -80,5 +81,16 @@ Capture.prototype.captureVideo = function(successCallback, errorCallback, option
     _capture("captureVideo", successCallback, errorCallback, options);
 };
 
+function _recognize(type, successCallback, errorCallback, options) {
+    var win = function(pluginResult) {
+        successCallback(pluginResult);
+    };
+    exec(win, errorCallback, "Capture", type, [options]);
+}
 
+Capture.prototype.recognizeID = function(successCallback, errorCallback, options){
+    _recognize("recognizeID", successCallback, errorCallback, options);
+};
 module.exports = new Capture();
+
+});
