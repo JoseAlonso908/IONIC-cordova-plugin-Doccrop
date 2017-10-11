@@ -95,12 +95,12 @@ xmlns:rim="http://www.blackberry.com/ns/widgets"
         <source-file src="src/android/com/creative/informatics/camera/ResultActivity.java" target-dir="com/creative/informatics/camera/" />
 
 
-        <resource-file src="res/layout/doc_crop.xml" target="res/layout/doc_crop.xml" />
-        <resource-file src="res/layout/doc_detect.xml" target="res/layout/doc_detect.xml" />
-        <resource-file src="res/layout/result_view.xml" target="res/layout/result_view.xml" />
+        <resource-file src="src/android/res/layout/doc_crop.xml" target="res/layout/doc_crop.xml" />
+        <resource-file src="src/android/res/layout/doc_detect.xml" target="res/layout/doc_detect.xml" />
+        <resource-file src="src/android/res/layout/result_view.xml" target="res/layout/result_view.xml" />
 
-        <resource-file src="res/values/colors.xml" target="res/values/crop_colors.xml" />
-        <resource-file src="res/values/dimens.xml" target="res/values/crop_dimens.xml" />
+        <resource-file src="src/android/res/values/colors.xml" target="res/values/crop_colors.xml" />
+        <resource-file src="src/android/res/values/dimens.xml" target="res/values/crop_dimens.xml" />
 
         <js-module src="www/android/init.js" name="init">
             <runs />
