@@ -74,12 +74,12 @@ public class DocDetect extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doc_detect);
+        setContentView(getResources().getIdentifier("doc_detect", "layout", getPackageName()));
 
         if (!OpenCVLoader.initDebug())
 		{
 			Log.d("OpenCV", "Internal OpenCV library not found. Using OpenCV Manager for initialization");
-			OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_2_0, this, mLoaderCallback);
+			OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_1_0, this, mLoaderCallback);
 		}
 		else
 		{
@@ -110,7 +110,7 @@ public class DocDetect extends Activity {
         }
 
 
-        final FrameLayout preview = findViewById(R.id.camera_preview);
+        final FrameLayout preview = findViewById(getResources().getIdentifier("camera_preview", "id", getPackageName()));
         Camera.Size size = mPreview.getOptimalPreviewSize();
         float ratio = (float)size.width/size.height;
 
@@ -138,7 +138,7 @@ public class DocDetect extends Activity {
         pictureFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
         mFilePath = pictureFile.getAbsolutePath();
 
-        Button captureButton = (Button)findViewById(R.id.button_capture);
+        Button captureButton = (Button)findViewById(getResources().getIdentifier("button_capture", "id", getPackageName()));
         captureButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
