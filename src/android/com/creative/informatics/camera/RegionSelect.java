@@ -42,10 +42,10 @@ public class RegionSelect extends View{
         super(context);
 
         mPaint = new Paint();
-        mPaint.setColor(getResources().getColor(R.color.polygonViewCircleBackground));
+        mPaint.setColor(getResources().getColor(getResources().getIdentifier("polygonViewCircleBackground", "color", getPackageName())));
 
         nPaint = new Paint();
-        nPaint.setColor(getResources().getColor(R.color.blue));
+        nPaint.setColor(getResources().getColor(getResources().getIdentifier("blue", "color", getPackageName())));
         nPaint.setStyle(Paint.Style.STROKE);
         nPaint.setStrokeWidth(5.0f);
 

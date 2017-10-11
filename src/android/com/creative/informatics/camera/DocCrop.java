@@ -81,7 +81,7 @@ public class DocCrop extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doc_crop);
+        setContentView(getResources().getIdentifier("doc_crop", "layout", getPackageName()));
 
         mFilePath = getIntent().getStringExtra("image_path");
         imageProcess = new ImageProcess();
@@ -117,7 +117,7 @@ public class DocCrop extends Activity {
         cornerPoint.add(p3);
         cornerPoint.add(p4);
 
-        FrameLayout circleview = findViewById(R.id.circle);
+        FrameLayout circleview = findViewById(getResources().getIdentifier("circle", "id", getPackageName()));
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -129,13 +129,13 @@ public class DocCrop extends Activity {
         RegionSelect region = new RegionSelect(this,cornerPoint,mImgBitmap);
         circleview.addView(region);
 
-        docview = findViewById(R.id.docview);
+        docview = findViewById(getResources().getIdentifier("docview", "id", getPackageName()));
         RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams)docview.getLayoutParams();
         params1.height = params0.height;
         docview.setLayoutParams(params1);
 
-        newphotoButton = findViewById(R.id.newphoto);
-        cropButton = findViewById(R.id.crop);
+        newphotoButton = findViewById(getResources().getIdentifier("newphoto", "id", getPackageName()));
+        cropButton = findViewById(getResources().getIdentifier("crop", "id", getPackageName()));
 
         docview.setImageBitmap(mImgBitmap);
 

@@ -25,14 +25,14 @@ public class ResultActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.result_view);
+        setContentView(getResources().getIdentifier("result_view", "layout", getPackageName()));
 
-        imgView = (ImageView)findViewById(R.id.resultview);
+        imgView = (ImageView)findViewById(getResources().getIdentifier("resultview", "id", getPackageName()));
         String path = getIntent().getStringExtra("resultpath");
         mResultBmp = BitmapFactory.decodeFile(path);
         imgView.setImageBitmap(mResultBmp);
 
-        rotateButton = (Button)findViewById(R.id.rotate);
+        rotateButton = (Button)findViewById(getResources().getIdentifier("rotate", "id", getPackageName()));
 
         rotateButton.setOnClickListener(new View.OnClickListener() {
             @Override
