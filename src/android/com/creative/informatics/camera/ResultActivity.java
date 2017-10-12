@@ -27,12 +27,12 @@ public class ResultActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(getResources().getIdentifier("result_view", "layout", getPackageName()));
 
-        imgView = (ImageView)findViewById(getResources().getIdentifier("resultview", "id", getPackageName()));
+        imgView = findViewById(getResources().getIdentifier("resultview", "id", getPackageName()));
         String path = getIntent().getStringExtra("resultpath");
         mResultBmp = BitmapFactory.decodeFile(path);
         imgView.setImageBitmap(mResultBmp);
 
-        rotateButton = (Button)findViewById(getResources().getIdentifier("rotate", "id", getPackageName()));
+        rotateButton = findViewById(getResources().getIdentifier("rotate", "id", getPackageName()));
 
         rotateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +40,16 @@ public class ResultActivity extends Activity {
                 mFinalBmp = RotateBitmap(mResultBmp,90);
                 imgView.setImageBitmap(mFinalBmp);
                 mResultBmp = mFinalBmp;
+            }
+        });
+
+        finishButton = findViewById(getResources().getIdentifier("finish", "id", getPackageName()));
+
+        finishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String result = BitmapToString(mFinalBmp);
+                //Log.d("Bitmap String",result);
             }
         });
 
