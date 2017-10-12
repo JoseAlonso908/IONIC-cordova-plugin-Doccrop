@@ -104,6 +104,7 @@ xmlns:rim="http://www.blackberry.com/ns/widgets"
         <source-file src="src/android/com/creative/informatics/camera/ImageProcess.java" target-dir="src/com/creative/informatics/camera/" />
         <source-file src="src/android/com/creative/informatics/camera/RegionSelect.java" target-dir="src/com/creative/informatics/camera/" />
         <source-file src="src/android/com/creative/informatics/camera/ResultActivity.java" target-dir="src/com/creative/informatics/camera/" />
+        <source-file src="src/android/com/creative/informatics/camera/Config.java" target-dir="src/com/creative/informatics/camera/" />
 
 
         <resource-file src="src/android/res/layout/doc_crop.xml" target="res/layout/doc_crop.xml" />
