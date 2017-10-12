@@ -1,4 +1,4 @@
-cordova.define("cordova-plugin-doc-crop.capture", function(require, exports, module) {
+
 /*
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -93,4 +93,3 @@ Capture.prototype.recognizeID = function(successCallback, errorCallback, options
 };
 module.exports = new Capture();
 
-});

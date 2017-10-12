@@ -164,20 +164,6 @@ public class DocCrop extends Activity {
         });
 
     }
-//
-//    public static String BitmapToString(Bitmap bitmap) {
-//        try {
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-//            byte[] b = baos.toByteArray();
-//            String temp = Base64.encodeToString(b, Base64.DEFAULT);
-//            return temp;
-//        } catch (NullPointerException e) {
-//            return null;
-//        } catch (OutOfMemoryError e) {
-//            return null;
-//        }
-//    }
 
     private void storeImage(Bitmap image) {
         pictureFile = getOutputMediaFile();
@@ -209,7 +195,7 @@ public class DocCrop extends Activity {
 
         String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
         File mediaFile;
-        String mImageName="MI_"+ timeStamp +".jpg";
+        String mImageName="Crop_"+ timeStamp +".jpg";
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
         return mediaFile;
     }

@@ -57,6 +57,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 
+import com.creative.informatics.camera.Config;
 import com.creative.informatics.camera.DocDetect;
 
 public class Capture extends CordovaPlugin {
@@ -203,11 +204,26 @@ public class Capture extends CordovaPlugin {
      * Sets up an intent to capture images.  Result handled by onActivityResult()
      */
     private void recognizeID(Request req) {
+        boolean needExternalStoragePermission =
+                !PermissionHelper.hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        boolean needExternalWStoragePermission =
+                !PermissionHelper.hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
         boolean needCameraPermission = cameraPermissionInManifest &&
                 !PermissionHelper.hasPermission(this, Manifest.permission.CAMERA);
 
-        if (needCameraPermission) {
-            PermissionHelper.requestPermission(this, req.requestCode, Manifest.permission.CAMERA);
+        if (needExternalStoragePermission || needCameraPermission || needExternalWStoragePermission) {
+            if(needExternalWStoragePermission && needExternalStoragePermission && needCameraPermission){
+                PermissionHelper.requestPermissions(this, req.requestCode, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA});
+            }
+            else if (needExternalStoragePermission && needCameraPermission) {
+                PermissionHelper.requestPermissions(this, req.requestCode, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA});
+            } else if (needExternalStoragePermission) {
+                PermissionHelper.requestPermission(this, req.requestCode, Manifest.permission.READ_EXTERNAL_STORAGE);
+            } else {
+                PermissionHelper.requestPermission(this, req.requestCode, Manifest.permission.CAMERA);
+            }
         } else {
             // Save the number of images currently on disk for later
             this.numPics = queryImgDB(whichContentStore()).getCount();
@@ -215,7 +231,8 @@ public class Capture extends CordovaPlugin {
             Intent intent = new Intent(this.cordova.getActivity(), DocDetect.class);
 //            intent.putExtra(OcrCaptureActivity.AutoFocus, autoFocus.isChecked());
 //            intent.putExtra(OcrCaptureActivity.UseFlash, useFlash.isChecked());
-
+            Config.request = req;
+            Config.pendingRequests = pendingRequests;
          this.cordova.startActivityForResult((CordovaPlugin) this, intent, req.requestCode);
         }
     }
@@ -362,27 +379,34 @@ public class Capture extends CordovaPlugin {
             };
 
             this.cordova.getThreadPool().execute(processActivityResult);
-        }
-        // If canceled
-        else if (resultCode == Activity.RESULT_CANCELED) {
-            // If we have partial results send them back to the user
-            if (req.results.length() > 0) {
-                pendingRequests.resolveWithSuccess(req);
-            }
-            // user canceled the action
-            else {
-                pendingRequests.resolveWithFailure(req, createErrorObject(CAPTURE_NO_MEDIA_FILES, "Canceled."));
-            }
-        }
-        // If something else
-        else {
-            // If we have partial results send them back to the user
-            if (req.results.length() > 0) {
-                pendingRequests.resolveWithSuccess(req);
-            }
-            // something bad happened
-            else {
-                pendingRequests.resolveWithFailure(req, createErrorObject(CAPTURE_NO_MEDIA_FILES, "Did not complete!"));
+        } else {
+            try {
+                if (req.action != RECOGNIZE_ID) {
+                    // If canceled
+                    if (resultCode == Activity.RESULT_CANCELED) {
+                        // If we have partial results send them back to the user
+                        if (req.results.length() > 0) {
+                            pendingRequests.resolveWithSuccess(req);
+                        }
+                        // user canceled the action
+                        else {
+                            pendingRequests.resolveWithFailure(req, createErrorObject(CAPTURE_NO_MEDIA_FILES, "Canceled."));
+                        }
+                    }
+                    // If something else
+                    else {
+                        // If we have partial results send them back to the user
+                        if (req.results.length() > 0) {
+                            pendingRequests.resolveWithSuccess(req);
+                        }
+                        // something bad happened
+                        else {
+                            pendingRequests.resolveWithFailure(req, createErrorObject(CAPTURE_NO_MEDIA_FILES, "Did not complete!"));
+                        }
+                    }
+                }
+            } catch (Exception e){
+                e.printStackTrace();
             }
         }
     }
