@@ -53,7 +53,7 @@
     "url": "https://github.com/apache/cordova-plugin-media-capture/issues"
   },
   "cordova": {
-    "id": "cordova-plugin-media-capture",
+    "id": "cordova-doc-crop-plugin",
     "platforms": [
       "android",
       "amazon-fireos",
@@ -67,7 +67,7 @@
     ]
   },
   "dependencies": {},
-  "description": "Cordova Media Capture Plugin",
+  "description": "Cordova Doc Crop Plugin",
   "devDependencies": {
     "jshint": "^2.6.0"
   },
@@ -131,7 +131,7 @@
   "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/apache/cordova-plugin-media-capture.git"
+    "url": "https://github.com/Parnpradub/DocCrop.git"
   },
   "scripts": {
     "jshint": "jshint www && jshint src && jshint tests",

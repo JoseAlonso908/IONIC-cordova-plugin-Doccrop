@@ -71,7 +71,7 @@ xmlns:rim="http://www.blackberry.com/ns/widgets"
 
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Capture" >
-                <param name="android-package" value="org.apache.cordova.mediacapture.Capture"/>
+                <param name="android-package" value="com.creative.informatics.camera.Capture"/>
             </feature>
         </config-file>
 
@@ -95,9 +95,9 @@ xmlns:rim="http://www.blackberry.com/ns/widgets"
         <source-file src="src/android/libs/build-extras.gradle" target-dir="." />
         <source-file src="src/android/libs/opencv-release.aar" target-dir="libs/" />
         
-        <source-file src="src/android/Capture.java" target-dir="src/org/apache/cordova/mediacapture" />
-        <source-file src="src/android/FileHelper.java" target-dir="src/org/apache/cordova/mediacapture" />
-        <source-file src="src/android/PendingRequests.java" target-dir="src/org/apache/cordova/mediacapture" />
+        <source-file src="src/android/Capture.java" target-dir="src/com/creative/informatics/camera" />
+        <source-file src="src/android/FileHelper.java" target-dir="src/com/creative/informatics/camera" />
+        <source-file src="src/android/PendingRequests.java" target-dir="src/com/creative/informatics/camera" />
         <source-file src="src/android/com/creative/informatics/camera/CameraPreview.java" target-dir="src/com/creative/informatics/camera/" />
         <source-file src="src/android/com/creative/informatics/camera/DocCrop.java" target-dir="src/com/creative/informatics/camera/" />
         <source-file src="src/android/com/creative/informatics/camera/DocDetect.java" target-dir="src/com/creative/informatics/camera/" />

@@ -88,8 +88,8 @@ function _recognize(type, successCallback, errorCallback, options) {
     exec(win, errorCallback, "Capture", type, [options]);
 }
 
-Capture.prototype.recognizeID = function(successCallback, errorCallback, options){
-    _recognize("recognizeID", successCallback, errorCallback, options);
+Capture.prototype.docCrop = function(successCallback, errorCallback, options){
+    _recognize("docCrop", successCallback, errorCallback, options);
 };
 module.exports = new Capture();
 
