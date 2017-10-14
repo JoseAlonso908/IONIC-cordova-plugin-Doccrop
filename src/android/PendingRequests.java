@@ -17,7 +17,7 @@
        under the License.
 */
 
-package org.apache.cordova.mediacapture;
+package com.creative.informatics.camera;
 
 import android.os.Bundle;
 import android.util.SparseArray;

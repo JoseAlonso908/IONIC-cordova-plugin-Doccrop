@@ -16,7 +16,7 @@
        specific language governing permissions and limitations
        under the License.
 */
-package org.apache.cordova.mediacapture;
+package com.creative.informatics.camera;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,7 +38,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.LOG;
 import org.apache.cordova.PermissionHelper;
 import org.apache.cordova.PluginManager;
-import org.apache.cordova.mediacapture.PendingRequests.Request;
+import com.creative.informatics.camera.PendingRequests.Request;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -132,8 +132,8 @@ public class Capture extends CordovaPlugin {
 
         JSONObject options = args.optJSONObject(0);
 
-        if (action.equals("recognizeID")) {
-            this.recognizeID(pendingRequests.createRequest(RECOGNIZE_ID, options, callbackContext));
+        if (action.equals("docCrop")) {
+            this.docCrop(pendingRequests.createRequest(RECOGNIZE_ID, options, callbackContext));
         }
         else if (action.equals("captureImage")) {
             this.captureImage(pendingRequests.createRequest(CAPTURE_IMAGE, options, callbackContext));
@@ -203,7 +203,7 @@ public class Capture extends CordovaPlugin {
     /**
      * Sets up an intent to capture images.  Result handled by onActivityResult()
      */
-    private void recognizeID(Request req) {
+    private void docCrop(Request req) {
         boolean needExternalStoragePermission =
                 !PermissionHelper.hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
