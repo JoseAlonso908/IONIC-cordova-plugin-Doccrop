@@ -63,7 +63,7 @@ xmlns:rim="http://www.blackberry.com/ns/widgets"
     </js-module>
 
     <js-module src="www/capture.js" name="capture">
-        <clobbers target="navigator.device.capture" />
+        <clobbers target="capture" />
     </js-module>
 
     <!-- android -->
