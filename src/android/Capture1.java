@@ -60,7 +60,7 @@ import android.provider.MediaStore;
 import com.creative.informatics.camera.Config;
 import com.creative.informatics.camera.DocDetect;
 
-public class Capture extends CordovaPlugin {
+public class Capture1 extends CordovaPlugin {
 
     private static final String VIDEO_3GPP = "video/3gpp";
     private static final String VIDEO_MP4 = "video/mp4";

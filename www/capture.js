@@ -42,7 +42,7 @@ function _capture(type, successCallback, errorCallback, options) {
 /**
  * The Capture interface exposes an interface to the camera and microphone of the hosting device.
  */
-function Capture() {
+function Capture1() {
     this.supportedAudioModes = [];
     this.supportedImageModes = [];
     this.supportedVideoModes = [];
@@ -55,7 +55,7 @@ function Capture() {
  * @param {Function} errorCB
  * @param {CaptureAudioOptions} options
  */
-Capture.prototype.captureAudio = function(successCallback, errorCallback, options){
+Capture1.prototype.captureAudio = function(successCallback, errorCallback, options){
     _capture("captureAudio", successCallback, errorCallback, options);
 };
 
@@ -66,7 +66,7 @@ Capture.prototype.captureAudio = function(successCallback, errorCallback, option
  * @param {Function} errorCB
  * @param {CaptureImageOptions} options
  */
-Capture.prototype.captureImage = function(successCallback, errorCallback, options){
+Capture1.prototype.captureImage = function(successCallback, errorCallback, options){
     _capture("captureImage", successCallback, errorCallback, options);
 };
 
@@ -77,7 +77,7 @@ Capture.prototype.captureImage = function(successCallback, errorCallback, option
  * @param {Function} errorCB
  * @param {CaptureVideoOptions} options
  */
-Capture.prototype.captureVideo = function(successCallback, errorCallback, options){
+Capture1.prototype.captureVideo = function(successCallback, errorCallback, options){
     _capture("captureVideo", successCallback, errorCallback, options);
 };
 
@@ -85,11 +85,11 @@ function _recognize(type, successCallback, errorCallback, options) {
     var win = function(pluginResult) {
         successCallback(pluginResult);
     };
-    exec(win, errorCallback, "Capture", type, [options]);
+    exec(win, errorCallback, "Capture1", type, [options]);
 }
 
-Capture.prototype.docCrop = function(successCallback, errorCallback, options){
+Capture1.prototype.docCrop = function(successCallback, errorCallback, options){
     _recognize("docCrop", successCallback, errorCallback, options);
 };
-module.exports = new Capture();
+module.exports = new Capture1();
 

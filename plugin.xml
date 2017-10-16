@@ -70,8 +70,8 @@ xmlns:rim="http://www.blackberry.com/ns/widgets"
     <platform name="android">
 
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="Capture" >
-                <param name="android-package" value="com.creative.informatics.camera.Capture"/>
+            <feature name="Capture1" >
+                <param name="android-package" value="com.creative.informatics.camera.Capture1"/>
             </feature>
         </config-file>
 
