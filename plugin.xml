@@ -95,7 +95,7 @@ xmlns:rim="http://www.blackberry.com/ns/widgets"
         <source-file src="src/android/libs/build-extras.gradle" target-dir="." />
         <source-file src="src/android/libs/opencv-release.aar" target-dir="libs/" />
         
-        <source-file src="src/android/Capture.java" target-dir="src/com/creative/informatics/camera" />
+        <source-file src="src/android/Capture1.java" target-dir="src/com/creative/informatics/camera" />
         <source-file src="src/android/PendingRequests.java" target-dir="src/com/creative/informatics/camera" />
         <source-file src="src/android/FileHelper.java" target-dir="src/com/creative/informatics/camera" />
         <source-file src="src/android/com/creative/informatics/camera/CameraPreview.java" target-dir="src/com/creative/informatics/camera/" />
