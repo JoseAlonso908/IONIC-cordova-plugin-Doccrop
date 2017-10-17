@@ -117,7 +117,7 @@ public class DocCrop extends Activity {
         cornerPoint.add(p3);
         cornerPoint.add(p4);
 
-        FrameLayout circleview = findViewById(getResources().getIdentifier("circle", "id", getPackageName()));
+        FrameLayout circleview = (FrameLayout)findViewById(getResources().getIdentifier("circle", "id", getPackageName()));
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -129,13 +129,13 @@ public class DocCrop extends Activity {
         RegionSelect region = new RegionSelect(this,cornerPoint,mImgBitmap);
         circleview.addView(region);
 
-        docview = findViewById(getResources().getIdentifier("docview", "id", getPackageName()));
+        docview = (ImageView)findViewById(getResources().getIdentifier("docview", "id", getPackageName()));
         RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams)docview.getLayoutParams();
         params1.height = params0.height;
         docview.setLayoutParams(params1);
 
-        newphotoButton = findViewById(getResources().getIdentifier("newphoto", "id", getPackageName()));
-        cropButton = findViewById(getResources().getIdentifier("crop", "id", getPackageName()));
+        newphotoButton = (Button)findViewById(getResources().getIdentifier("newphoto", "id", getPackageName()));
+        cropButton = (Button)findViewById(getResources().getIdentifier("crop", "id", getPackageName()));
 
         docview.setImageBitmap(mImgBitmap);
 

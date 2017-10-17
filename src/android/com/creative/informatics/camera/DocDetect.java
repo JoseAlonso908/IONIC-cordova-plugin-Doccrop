@@ -110,7 +110,7 @@ public class DocDetect extends Activity {
         }
 
 
-        final FrameLayout preview = findViewById(getResources().getIdentifier("camera_preview", "id", getPackageName()));
+        final FrameLayout preview = (FrameLayout)findViewById(getResources().getIdentifier("camera_preview", "id", getPackageName()));
         Camera.Size size = mPreview.getOptimalPreviewSize();
         float ratio = (float)size.width/size.height;
 
