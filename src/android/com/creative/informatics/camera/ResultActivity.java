@@ -37,6 +37,7 @@ public class ResultActivity extends Activity {
     private Button finishButton;
     private File pictureFile;
     private final String TAG = "ResultActivity";
+    private String resultPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,8 @@ public class ResultActivity extends Activity {
         setContentView(getResources().getIdentifier("result_view", "layout", getPackageName()));
 
         imgView = findViewById(getResources().getIdentifier("resultview", "id", getPackageName()));
-        String path = getIntent().getStringExtra("resultpath");
-        mResultBmp = BitmapFactory.decodeFile(path);
+        resultPath = getIntent().getStringExtra("resultpath");
+        mResultBmp = BitmapFactory.decodeFile(resultPath);
         imgView.setImageBitmap(mResultBmp);
         mFinalBmp = mResultBmp;
 
@@ -67,6 +68,15 @@ public class ResultActivity extends Activity {
             public void onClick(View view) {
                 //String result = BitmapToString(mFinalBmp);
                 storeImage(mFinalBmp);
+
+                File fdelete = new File(resultPath);
+                if (fdelete.exists()) {
+                    if (fdelete.delete()) {
+                        System.out.println("file Deleted :" + resultPath);
+                    } else {
+                        System.out.println("file not Deleted :" + resultPath);
+                    }
+                }
 
                 String result = pictureFile.getAbsolutePath();
 
@@ -92,21 +102,6 @@ public class ResultActivity extends Activity {
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
-
-    public static String BitmapToString(Bitmap bitmap) {
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-            byte[] b = baos.toByteArray();
-            String temp = Base64.encodeToString(b, Base64.DEFAULT);
-            return temp;
-        } catch (NullPointerException e) {
-            return null;
-        } catch (OutOfMemoryError e) {
-            return null;
-        }
-    }
-
     private void storeImage(Bitmap image) {
         pictureFile = getOutputMediaFile();
         if (pictureFile == null) {
@@ -116,7 +111,7 @@ public class ResultActivity extends Activity {
         }
         try {
             FileOutputStream fos = new FileOutputStream(pictureFile);
-            image.compress(Bitmap.CompressFormat.PNG, 90, fos);
+            image.compress(Bitmap.CompressFormat.PNG, 50, fos);
             fos.close();
         } catch (FileNotFoundException e) {
             Log.d(TAG, "File not found: " + e.getMessage());

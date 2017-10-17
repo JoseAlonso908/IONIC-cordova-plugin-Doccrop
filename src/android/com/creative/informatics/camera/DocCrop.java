@@ -144,6 +144,14 @@ public class DocCrop extends Activity {
             public void onClick(View view) {
                 Mat startM = Converters.vector_Point2f_to_Mat(cornerPoint);
                 mResultBmp = imageProcess.warpAuto(mImgBitmap, startM);
+                File fdelete = new File(mFilePath);
+                if (fdelete.exists()) {
+                    if (fdelete.delete()) {
+                        System.out.println("file Deleted :" + mFilePath);
+                    } else {
+                        System.out.println("file not Deleted :" + mFilePath);
+                    }
+                }
                 storeImage(mResultBmp);
                 mResultPath = pictureFile.getAbsolutePath();
 
@@ -174,7 +182,7 @@ public class DocCrop extends Activity {
         }
         try {
             FileOutputStream fos = new FileOutputStream(pictureFile);
-            image.compress(Bitmap.CompressFormat.PNG, 90, fos);
+            image.compress(Bitmap.CompressFormat.PNG, 50, fos);
             fos.close();
         } catch (FileNotFoundException e) {
             Log.d(TAG, "File not found: " + e.getMessage());

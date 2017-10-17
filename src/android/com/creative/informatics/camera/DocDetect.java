@@ -219,7 +219,7 @@ public class DocDetect extends Activity {
                     realImage= rotate(realImage, 90);
                 }
 
-                boolean bo = realImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                boolean bo = realImage.compress(Bitmap.CompressFormat.JPEG, 40, fos);
 
                 fos.close();
 
