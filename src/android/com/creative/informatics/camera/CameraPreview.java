@@ -253,15 +253,17 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         List<Size> sizes = parameters.getSupportedPreviewSizes();
         Size optimalsize = null;
         int[] temp = new int[sizes.size()];
+        int[] temp1 = new int[sizes.size()];
         for (int i = 0; i < sizes.size(); i++){
 
             if (sizes.get(i).width + sizes.get(i).height < 1200) {
                 temp[i] = sizes.get(i).width;
+                temp1[i] = sizes.get(i).height;
             }
         }
 
         for (int i = 0; i < sizes.size(); i++){
-            if(sizes.get(i).width == getMax(temp)){
+            if(sizes.get(i).width == getMax(temp) && sizes.get(i).height == getMax(temp1)){
                 optimalsize = sizes.get(i);
             }
         }
@@ -279,15 +281,16 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         Size preSize = getOptimalPreviewSize();
         float aspectRatio = (float) preSize.width/preSize.height;
         int[] temp = new int[sizes.size()];
+        int[] temp1 = new int[sizes.size()];
         for (int i = 0; i < sizes.size(); i++){
 
-            if (sizes.get(i).width + sizes.get(i).height <= 4000 && (float)sizes.get(i).width/sizes.get(i).height > aspectRatio - 0.3 && (float)sizes.get(i).width/sizes.get(i).height < aspectRatio + 0.3) {
+            if (sizes.get(i).width + sizes.get(i).height <= 10000 && (float)sizes.get(i).width/sizes.get(i).height > aspectRatio - 0.1 && (float)sizes.get(i).width/sizes.get(i).height < aspectRatio + 0.1) {
                 temp[i] = sizes.get(i).width;
             }
         }
 
         for (int i = 0; i < sizes.size(); i++){
-            if(sizes.get(i).width == getMax(temp)){
+            if(sizes.get(i).width == getMax(temp) && sizes.get(i).height == getMax(temp1)){
                 optimalsize = sizes.get(i);
             }
         }
