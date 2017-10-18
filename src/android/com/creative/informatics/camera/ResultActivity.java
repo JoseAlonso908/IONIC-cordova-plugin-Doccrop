@@ -67,7 +67,7 @@ public class ResultActivity extends Activity {
             @Override
             public void onClick(View view) {
                 //String result = BitmapToString(mFinalBmp);
-                storeImage(mFinalBmp);
+                //storeImage(mFinalBmp);
 
                 File fdelete = new File(resultPath);
                 if (fdelete.exists()) {
@@ -111,7 +111,7 @@ public class ResultActivity extends Activity {
         }
         try {
             FileOutputStream fos = new FileOutputStream(pictureFile);
-            image.compress(Bitmap.CompressFormat.PNG, 80, fos);
+            image.compress(Bitmap.CompressFormat.JPEG, 80, fos);
             fos.close();
         } catch (FileNotFoundException e) {
             Log.d(TAG, "File not found: " + e.getMessage());
