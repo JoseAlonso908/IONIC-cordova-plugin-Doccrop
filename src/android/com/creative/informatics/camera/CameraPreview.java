@@ -286,6 +286,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
             if (sizes.get(i).width + sizes.get(i).height <= 10000 && (float)sizes.get(i).width/sizes.get(i).height > aspectRatio - 0.1 && (float)sizes.get(i).width/sizes.get(i).height < aspectRatio + 0.1) {
                 temp[i] = sizes.get(i).width;
+                temp1[i] = sizes.get(i).height;
             }
         }
 
