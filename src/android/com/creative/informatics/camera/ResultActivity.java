@@ -67,7 +67,7 @@ public class ResultActivity extends Activity {
             @Override
             public void onClick(View view) {
                 //String result = BitmapToString(mFinalBmp);
-                //storeImage(mFinalBmp);
+                storeImage(mFinalBmp);
 
                 File fdelete = new File(resultPath);
                 if (fdelete.exists()) {
