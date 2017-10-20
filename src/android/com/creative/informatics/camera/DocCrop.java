@@ -64,7 +64,7 @@ public class DocCrop extends Activity {
     private double yscalefactor;
 
     Point p1,p2,p3,p4;
-
+    private ProgressDialog progressDialog;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -82,6 +82,13 @@ public class DocCrop extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getResources().getIdentifier("doc_crop", "layout", getPackageName()));
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Cropping...");
+        progressDialog.setMessage("Please Wait for a moment.");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
+        progressDialog.dismiss();
 
         mFilePath = getIntent().getStringExtra("image_path");
         imageProcess = new ImageProcess();
@@ -142,23 +149,34 @@ public class DocCrop extends Activity {
         cropButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Mat startM = Converters.vector_Point2f_to_Mat(cornerPoint);
-                mResultBmp = imageProcess.warpAuto(mImgBitmap, startM);
-                File fdelete = new File(mFilePath);
-                if (fdelete.exists()) {
-                    if (fdelete.delete()) {
-                        System.out.println("file Deleted :" + mFilePath);
-                    } else {
-                        System.out.println("file not Deleted :" + mFilePath);
+                progressDialog.show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Mat startM = Converters.vector_Point2f_to_Mat(cornerPoint);
+                        mResultBmp = imageProcess.warpAuto(mImgBitmap, startM);
+                        File fdelete = new File(mFilePath);
+                        if (fdelete.exists()) {
+                            if (fdelete.delete()) {
+                                System.out.println("file Deleted :" + mFilePath);
+                            } else {
+                                System.out.println("file not Deleted :" + mFilePath);
+                            }
+                        }
+                        storeImage(mResultBmp);
+                        mResultPath = pictureFile.getAbsolutePath();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                Intent mIntent = new Intent(DocCrop.this, ResultActivity.class);
+                                mIntent.putExtra("resultpath", mResultPath);
+                                startActivity(mIntent);
+                                finish();
+                            }
+                        });
                     }
-                }
-                storeImage(mResultBmp);
-                mResultPath = pictureFile.getAbsolutePath();
-
-                Intent mIntent = new Intent(DocCrop.this, ResultActivity.class);
-                mIntent.putExtra("resultpath", mResultPath);
-                startActivity(mIntent);
-                finish();
+                }).start();
             }
         });
 
@@ -182,7 +200,7 @@ public class DocCrop extends Activity {
         }
         try {
             FileOutputStream fos = new FileOutputStream(pictureFile);
-            image.compress(Bitmap.CompressFormat.JPEG, 80, fos);
+            image.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.close();
         } catch (FileNotFoundException e) {
             Log.d(TAG, "File not found: " + e.getMessage());

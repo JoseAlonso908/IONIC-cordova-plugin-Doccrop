@@ -55,6 +55,7 @@ public class DocDetect extends Activity {
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
     private final static String TAG = "MainActivity";
+    private ProgressDialog progressDialog;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -98,10 +99,6 @@ public class DocDetect extends Activity {
                 == PackageManager.PERMISSION_DENIED)
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1003);
 
-
-//        mImageView = new ImageView(DocDetect.this);
-//        mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-
         if (mPreview == null)
         {
             mCamera = getCameraInstance();
@@ -109,6 +106,12 @@ public class DocDetect extends Activity {
 
         }
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Processing...");
+        progressDialog.setMessage("Please Wait for a moment.");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
+        progressDialog.dismiss();
 
         final FrameLayout preview = (FrameLayout)findViewById(getResources().getIdentifier("camera_preview", "id", getPackageName()));
         Camera.Size size = mPreview.getOptimalPreviewSize();
@@ -143,41 +146,12 @@ public class DocDetect extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        progressDialog.show();
                         mCamera.takePicture(null, null, mPicture);
                     }
                 }
         );
     }
-
-
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        if (mPreview != null) {
-//            FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
-//            preview.removeView(mPreview);
-//            mPreview = null;
-//        }
-//        if(mImageView != null){
-//            FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
-//            preview.removeView(mImageView);
-//            mImageView = null;
-//        }
-//
-//    }
-
-//    @Override
-//    protected void onRestart() {
-//        super.onRestart();
-//        mCamera = getCameraInstance();    //Open rear camer
-//        mPreview = new CameraPreview(DocDetect.this, mCamera, mImageView);
-//        FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
-//        mImageView = new ImageView(DocDetect.this);
-//        mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-//        preview.addView(mPreview);
-//        preview.addView(mImageView);
-//
-//    }
 
     public Camera getCameraInstance(){
         if(mCamera != null)
@@ -201,56 +175,58 @@ public class DocDetect extends Activity {
                 pictureFile.delete();
             }
 
-            try {
-                FileOutputStream fos = new FileOutputStream(pictureFile);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        FileOutputStream fos = new FileOutputStream(pictureFile);
 
-                Bitmap realImage = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        Bitmap realImage = BitmapFactory.decodeByteArray(data, 0, data.length);
 
-                ExifInterface exif=new ExifInterface(pictureFile.toString());
+                        ExifInterface exif=new ExifInterface(pictureFile.toString());
 
-                Log.d("EXIF value", exif.getAttribute(ExifInterface.TAG_ORIENTATION));
-                if(exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("6")){
-                    realImage= rotate(realImage, 90);
-                } else if(exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("8")){
-                    realImage= rotate(realImage, 270);
-                } else if(exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("3")){
-                    realImage= rotate(realImage, 180);
-                } else if(exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("0")){
-                    realImage= rotate(realImage, 90);
+                        Log.d("EXIF value", exif.getAttribute(ExifInterface.TAG_ORIENTATION));
+                        if(exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("6")){
+                            realImage= rotate(realImage, 90);
+                        } else if(exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("8")){
+                            realImage= rotate(realImage, 270);
+                        } else if(exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("3")){
+                            realImage= rotate(realImage, 180);
+                        } else if(exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("0")){
+                            realImage= rotate(realImage, 90);
+                        }
+
+                        boolean bo = realImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        Log.d(TAG, "File not found: " + e.getMessage());
+                    } catch (IOException e) {
+                        Log.d(TAG, "Error accessing file: " + e.getMessage());
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent mIntent = new Intent(DocDetect.this, DocCrop.class);
+                            mIntent.putExtra("image_path", mFilePath );
+
+                            mIntent.putExtra("x1",mPreview.x1);
+                            mIntent.putExtra("y1",mPreview.y1);
+                            mIntent.putExtra("x2",mPreview.x2);
+                            mIntent.putExtra("y2",mPreview.y2);
+                            mIntent.putExtra("x3",mPreview.x3);
+                            mIntent.putExtra("y3",mPreview.y3);
+                            mIntent.putExtra("x4",mPreview.x4);
+                            mIntent.putExtra("y4",mPreview.y4);
+                            mIntent.putExtra("xscale",mPreview.mDefaultSize.height);
+                            mIntent.putExtra("yscale",mPreview.mDefaultSize.width);
+
+                            startActivity(mIntent);
+                            finish();
+                        }
+                    });
                 }
-
-                boolean bo = realImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-
-                fos.close();
-
-
-                if(mPreview.x1 > -1){
-                    Intent mIntent = new Intent(DocDetect.this, DocCrop.class);
-                    mIntent.putExtra("image_path", mFilePath );
-
-                    mIntent.putExtra("x1",mPreview.x1);
-                    mIntent.putExtra("y1",mPreview.y1);
-                    mIntent.putExtra("x2",mPreview.x2);
-                    mIntent.putExtra("y2",mPreview.y2);
-                    mIntent.putExtra("x3",mPreview.x3);
-                    mIntent.putExtra("y3",mPreview.y3);
-                    mIntent.putExtra("x4",mPreview.x4);
-                    mIntent.putExtra("y4",mPreview.y4);
-                    mIntent.putExtra("xscale",mPreview.mDefaultSize.height);
-                    mIntent.putExtra("yscale",mPreview.mDefaultSize.width);
-
-                    startActivity(mIntent);
-                    finish();
-                }
-                else {
-                    Toast.makeText(DocDetect.this, "Docs is not detected.Please try again!!", Toast.LENGTH_LONG).show();
-                }
-
-            } catch (FileNotFoundException e) {
-                Log.d(TAG, "File not found: " + e.getMessage());
-            } catch (IOException e) {
-                Log.d(TAG, "Error accessing file: " + e.getMessage());
-            }
+            }).start();
         }
     };
 
