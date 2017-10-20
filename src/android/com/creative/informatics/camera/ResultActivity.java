@@ -15,6 +15,10 @@ import android.widget.ImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.opencv.android.Utils;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -22,7 +26,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by K on 9/29/2017.
@@ -67,7 +74,7 @@ public class ResultActivity extends Activity {
             @Override
             public void onClick(View view) {
                 //String result = BitmapToString(mFinalBmp);
-                storeImage(mFinalBmp);
+                storeImage(imageContrast(mFinalBmp));
 
                 File fdelete = new File(resultPath);
                 if (fdelete.exists()) {
@@ -135,5 +142,19 @@ public class ResultActivity extends Activity {
         String mImageName="Result_"+ timeStamp +".jpg";
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
         return mediaFile;
+    }
+
+    private Bitmap imageContrast(Bitmap input){
+        Mat src = new Mat();
+        Utils.bitmapToMat(input,src);
+        Imgproc.cvtColor(src,src,Imgproc.COLOR_BGR2YCrCb);
+        List<Mat> channels = new ArrayList<>();
+        Core.split(src,channels);
+        channels.get(0).convertTo(channels.get(0),-1,1.1);
+        Core.merge(channels,src);
+        Imgproc.cvtColor(src,src,Imgproc.COLOR_YCrCb2BGR);
+        Utils.matToBitmap(src,input);
+        return input;
+
     }
 }
