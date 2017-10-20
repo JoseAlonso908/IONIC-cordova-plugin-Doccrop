@@ -170,7 +170,7 @@ public class DocDetect extends Activity {
     private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
 
         @Override
-        public void onPictureTaken(byte[] data, Camera camera) {
+        public void onPictureTaken(final byte[] data, Camera camera) {
 
             if (pictureFile.exists()) {
                 pictureFile.delete();
