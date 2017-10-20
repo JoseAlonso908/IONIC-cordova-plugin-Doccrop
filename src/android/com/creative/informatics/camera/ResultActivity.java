@@ -150,7 +150,7 @@ public class ResultActivity extends Activity {
         Imgproc.cvtColor(src,src,Imgproc.COLOR_BGR2YCrCb);
         List<Mat> channels = new ArrayList<>();
         Core.split(src,channels);
-        channels.get(0).convertTo(channels.get(0),-1,1.1);
+        channels.get(0).convertTo(channels.get(0),-1,1.6);
         Core.merge(channels,src);
         Imgproc.cvtColor(src,src,Imgproc.COLOR_YCrCb2BGR);
         Utils.matToBitmap(src,input);
