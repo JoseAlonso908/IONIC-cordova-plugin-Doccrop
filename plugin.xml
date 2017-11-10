@@ -119,4 +119,45 @@ xmlns:rim="http://www.blackberry.com/ns/widgets"
         </js-module>
     </platform>
 
+     <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="DocCrop">
+                <param name="ios-package" value="DocCrop"/>
+            </feature>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+            <string>This app needs camera access.</string>
+        </config-file>
+
+        <source-file src="src/ios/DocCrop.m"/>
+        <header-file src="src/ios/DocCrop.h"/>
+        <source-file src="src/ios/PhotoCropViewController.m"/>
+        <header-file src="src/ios/PhotoCropViewController.h"/>
+        <source-file src="src/ios/RectangleCALayer.m"/>
+        <header-file src="src/ios/RectangleCALayer.h"/>
+        <source-file src="src/ios/RegionSelect.m"/>
+        <header-file src="src/ios/RegionSelect.h"/>
+        <source-file src="src/ios/Rectangle.m"/>
+        <header-file src="src/ios/Rectangle.h"/>
+        <source-file src="src/ios/CVWrapper.mm"/>
+        <header-file src="src/ios/CVWrapper.h"/>
+        <source-file src="src/ios/CVSquares.cpp"/>
+        <header-file src="src/ios/CVSquares.h"/>
+        <source-file src="src/ios/UIImage+OpenCV.mm"/>
+        <header-file src="src/ios/UIImage+OpenCV.h"/>
+        <source-file src="src/ios/ViewController.m"/>
+        <header-file src="src/ios/ViewController.h"/>
+        <header-file src="src/ios/PrefixHeader.pch"/>
+        <source-file src="src/ios/ResultController.m"/>
+        <header-file src="src/ios/ResultController.h"/>
+
+        <framework src="AVFoundation.framework"/>
+        <framework src="Foundation.framework"/>
+        <framework src="UIKit.framework"/>
+        <framework src="QuartzCore.framework"/>
+        <framework src="src/ios/opencv2.framework" custom="true" />
+
+    </platform>
+
 </plugin>
