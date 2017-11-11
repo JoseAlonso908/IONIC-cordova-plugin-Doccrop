@@ -23,7 +23,7 @@
 
 + (Rectangle*) detectedSquaresInImage:(UIImage*) image{
     
-    std::vector<std::vector<cv::Point>>squares;
+    std::vector<std::vector<cv::Point> >squares;
     std::vector<cv::Point> largest_square;
     
     cv::Mat mat = [image CVMat];
@@ -119,14 +119,14 @@ double angle( cv::Point pt1, cv::Point pt2, cv::Point pt0 ) {
     return (dx1*dx2 + dy1*dy2)/sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-10);
 }
 
-void find_squares(cv::Mat& image, std::vector<std::vector<cv::Point>>&squares) {
+void find_squares(cv::Mat& image, std::vector<std::vector<cv::Point> >&squares) {
     
     // blur will enhance edge detection
     cv::Mat blurred(image);
     medianBlur(image, blurred, 7);
     
     cv::Mat gray0(blurred.size(), CV_8U), gray;
-    std::vector<std::vector<cv::Point>> contours;
+    std::vector<std::vector<cv::Point> > contours;
     
     // find squares in every color plane of the image
     for (int c = 0; c < 3; c++)
