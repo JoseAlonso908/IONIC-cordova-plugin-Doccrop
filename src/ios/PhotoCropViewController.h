@@ -6,6 +6,7 @@
 
 @interface PhotoCropViewController : UIViewController
 
+    @property (readwrite) DocCrop *main;
     @property(nonatomic,retain) UIImage* img;
     @property CGFloat x1;
     @property CGFloat y1;

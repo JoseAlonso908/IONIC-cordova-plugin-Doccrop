@@ -67,8 +67,8 @@ CGFloat screenWid;
 
 -(IBAction)cropClick:(id)sender{
     ResultController *controler = [[ResultController alloc] initWithNibName:nil bundle:nil];
+    controler.main = self.main;
     
-
     CGPoint firstPt = [self makePoints:rs.lbx fy:rs.lby];
     CGPoint secondPt = [self makePoints:rs.rbx fy:rs.rby];
     CGPoint thirdPt = [self makePoints:rs.rtx fy:rs.rty];
@@ -76,6 +76,7 @@ CGFloat screenWid;
     NSLog(@"%@", [NSString stringWithFormat:@"%f",rs.lbx]);
     controler.resultimg = [CVWrapper cropImage:_img firstPt:firstPt secondPt:secondPt thirdPt:thirdPt fourthPt:fourthPt];
     [self presentViewController:controler animated:YES completion:nil];
+//    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (CGPoint) makePoints:(CGFloat) rx1 fy:(CGFloat) ry1

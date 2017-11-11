@@ -3,6 +3,7 @@
 
 #import "DocCrop.h"
 #import "ResultController.h"
+#import "ViewController.h"
 
 @interface DocCrop ()
 {
@@ -14,8 +15,9 @@
 
 - (void) cropresult:(CDVInvokedUrlCommand *)command {
     callbackId = command.callbackId;
-    ResultController *vc = [[ResultController alloc] init];
-    vc.main = self;
+    ViewController* vc = [[ViewController alloc] init];
+    vc.main1 = self;
+    
     [self.viewController presentViewController:vc animated:YES completion:nil];
 }
 
