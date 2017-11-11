@@ -1,13 +1,10 @@
-//
-//  DocRecognize.h
 
 
 #import <Cordova/CDVPlugin.h>
-#import <TesseractOCR/TesseractOCR.h>
 
-@interface DocRecognize : CDVPlugin
+@interface DocCrop : CDVPlugin
 
-- (void) recognise:(CDVInvokedUrlCommand*)command;
+- (void) cropresult:(CDVInvokedUrlCommand*)command;
 - (void) completeWith:(NSString *) result;
 
 @end

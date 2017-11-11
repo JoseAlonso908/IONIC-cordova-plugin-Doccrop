@@ -80,13 +80,9 @@ UIImageView *myImage;
     // Write the file
     [imageData writeToFile:imgfilePath atomically:YES];
     _resultimg = [CVWrapper brightimage:_resultimg];
-    UIImageWriteToSavedPhotosAlbum(_resultimg, nil, nil, nil);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Result"
-                                                    message:imgfilePath
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
+    // UIImageWriteToSavedPhotosAlbum(_resultimg, nil, nil, nil);
+    [self.main completeWith:imgfilePath];
+    [self dismissViewControllerAnimated:NO completion:nil];
     
 }
 

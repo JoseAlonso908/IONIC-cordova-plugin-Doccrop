@@ -1,20 +1,20 @@
 //
 //  DocRecognize.m
 
-#import "DocRecognize.h"
-#import "RecognizeViewController.h"
+#import "DocCrop.h"
+#import "ResultController.h"
 
-@interface DocRecognize ()
+@interface DocCrop ()
 {
     NSString *callbackId;
 }
 @end
 
-@implementation DocRecognize
+@implementation DocCrop
 
-- (void) recognise:(CDVInvokedUrlCommand *)command {
+- (void) cropresult:(CDVInvokedUrlCommand *)command {
     callbackId = command.callbackId;
-    RecognizeViewController *vc = [[RecognizeViewController alloc] init];
+    ResultController *vc = [[ResultController alloc] init];
     vc.main = self;
     [self.viewController presentViewController:vc animated:YES completion:nil];
 }
