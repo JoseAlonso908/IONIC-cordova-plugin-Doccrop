@@ -64,6 +64,10 @@ xmlns:rim="http://www.blackberry.com/ns/widgets"
         <clobbers target="capture" />
     </js-module>
 
+    <js-module src="www/DocCrop.js" name="DocCrop">
+        <clobbers target="DocCrops"/>
+    </js-module>
+
     <!-- android -->
     <platform name="android">
 
