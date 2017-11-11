@@ -82,7 +82,8 @@ UIImageView *myImage;
     _resultimg = [CVWrapper brightimage:_resultimg];
     // UIImageWriteToSavedPhotosAlbum(_resultimg, nil, nil, nil);
     [self.main completeWith:imgfilePath];
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:NO completion:nil];
     
 }
 

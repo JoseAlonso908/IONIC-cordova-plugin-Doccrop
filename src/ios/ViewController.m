@@ -139,6 +139,7 @@ CGFloat rightBY;
 
     if(leftTX != 0 && leftTY != 0){
         PhotoCropViewController *controler = [[PhotoCropViewController alloc] initWithNibName:nil bundle:nil];
+        controler.main = self.main1;
         controler.img = resultimg;
         controler.x1 = leftTX;
         controler.y1 = leftTY;
