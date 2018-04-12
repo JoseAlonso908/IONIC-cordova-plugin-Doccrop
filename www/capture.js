@@ -19,9 +19,9 @@
  * under the License.
  *
 */
-
 var exec = require('cordova/exec'),
     helpers = require('./helpers');
+
 
 /**
  * Launches a capture of different types.
